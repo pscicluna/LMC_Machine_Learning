@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt]{article}
+\documentclass[a4paper, 15pt,usenatbib]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -9,7 +9,26 @@
 \usepackage{fancyhdr}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{cite}
+\usepackage{natbib}
+\usepackage{txfonts}
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{booktabs}
+
+% Hyperref settings to show links in blue without boxes
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    linkbordercolor={0 0 1},
+    citebordercolor={0 0 1},
+    urlbordercolor={0 0 1}
+}
+
 
 \geometry{margin=1in}
 
@@ -20,8 +39,10 @@
 \fancyfoot[C]{\thepage}
 
 % Title Page
-\title{Title of Your Report}
-\author{Your Name \\
+\title{Machine Learning Classification of Infrared
+Sources in the Large Magellanic Cloud}
+\author{Hamidreza Mahani \\
+    \\
         Institute for Research in Fundamental Sciences (IPM) \\
         School of Astronomy}
 \date{\today}
@@ -31,14 +52,14 @@
 \maketitle
 
 \begin{abstract}
-    This is the abstract of your report. It should provide a brief summary of the research, methods, results, and conclusions.
+    This is the abstract of your report. It should provide a brief summary of the research, methods, results, and conclusions. 
 \end{abstract}
 
 \tableofcontents
 \newpage
 
 \section{Introduction}
-Provide an introduction to your research. Explain the background, context, and the main objectives of your study.
+Provide an introduction to your research. Explain the background, context, and the main objectives of your study. \citep{Willson2000}
 
 \section{Literature Review}
 Review the relevant literature in your field. Summarize key findings from previous research and highlight how your work builds on or differs from these studies.
@@ -59,7 +80,17 @@ Summarize the main findings of your research. Discuss the implications of your w
 Acknowledge any individuals or organizations that assisted with your research. This may include funding sources, colleagues, or mentors.
 
 \section{References}
-\bibliographystyle{plain}
-\bibliography{references}
+%\bibliographystyle{plain}
+%\bibliography{LMC}
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+
+% The best way to enter references is to use BibTeX:
+
+\bibliographystyle{mnras}
+\bibliography{LMC} % if your bibtex file is called example.bib
+
+
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
