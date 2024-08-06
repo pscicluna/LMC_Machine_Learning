@@ -32,6 +32,28 @@
 
 \geometry{margin=1in}
 
+
+\newcommand\apj{Astrophysical Journal}
+\newcommand\mnras{Monthly Notices of the Royal Astronomical Society}
+\newcommand\prl{Physical Review Letters}
+\newcommand\aap{Astronomy and Astrophysics}
+\newcommand\physrep{Physics Reports}
+\newcommand\araa{Annual Reviews of Astronomy and Astrophysics}
+\newcommand\nat{Nature}
+\newcommand\aj{The Astronomical Journal}
+\newcommand\apjs{The Astrophysical Journal Supplement}
+\newcommand\apjl{Astrophysical Journal}
+\newcommand\pasa{Publications of the Astronomical Society of Australia}
+\newcommand\pasp{Publications of the Astronomical Society of the Pacific}
+\newcommand\jcap{Journal of Cosmology and Astroparticle Physics}
+\newcommand\aapr{Astronomy and Astrophysics Review}
+\newcommand\prd{Physical Review D}
+\newcommand\aaps{Astronomy and Astrophysics Supplement Series}
+\newcommand\pasj{Publications of the Astronomical Society of Japan}
+\newcommand\amp{Annales d'Astrophysique}
+\newcommand\fcp{Fundamentals of Cosmic Physics}
+\newcommand{\msun}{\mbox{$\,{\rm M}_\odot$}}
+
 % Header and Footer
 \pagestyle{fancy}
 \fancyhf{}
@@ -52,17 +74,17 @@ Sources in the Large Magellanic Cloud}
 \maketitle
 
 \begin{abstract}
-    This is the abstract of your report. It should provide a brief summary of the research, methods, results, and conclusions. 
+    In this project, we aim to classify the point sources in the Large Magellanic Cloud, observed by the Spitzer Space Telescope and presented in the SAGE catalog, using machine learning models. Following the classification, we will study the life cycle of dust for those objects that produce and consume dust. Codes, plots, and other materials related to this project are available in the \href{https://github.com/hmahani/LMC_Machine_Learning}{GitHub repository} for this project.
 \end{abstract}
 
 \tableofcontents
 \newpage
 
 \section{Introduction}
-Provide an introduction to your research. Explain the background, context, and the main objectives of your study. \citep{Willson2000}
+Provide an introduction to your research. Explain the background, context, and the main objectives of your study. 
 
-\section{Literature Review}
-Review the relevant literature in your field. Summarize key findings from previous research and highlight how your work builds on or differs from these studies.
+\section{Catalogs}
+The primary catalog studied in this project is the SAGE catalog, which initially contained 7,048,620 rows and 111 columns. This catalog was cross-matched with the \href{https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=I/350&-out.max=50&-out.form=HTML%20Table&-out.add=_r&-out.add=_RAJ,_DEJ&-sort=_r&-oc.form=sexa}{Gaia} \citep{GaiaDR3} and \href{https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=II/375&-out.max=50&-out.form=HTML%20Table&-out.add=_r&-out.add=_RAJ,_DEJ&-sort=_r&-oc.form=sexa}{VISTA} \citep{Cioni11_Vista} catalogs, resulting in the final catalog having 7,048,620 rows and 205 columns.
 
 \section{Methodology}
 Describe the methods and procedures used in your research. Include details about your data collection, analysis techniques, and any tools or software used.
