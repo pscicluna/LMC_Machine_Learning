@@ -87,7 +87,26 @@ Provide an introduction to your research. Explain the background, context, and t
 The primary catalog studied in this project is the SAGE catalog, which initially contained 7,048,620 rows and 111 columns. This catalog was cross-matched with the \href{https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=I/350&-out.max=50&-out.form=HTML%20Table&-out.add=_r&-out.add=_RAJ,_DEJ&-sort=_r&-oc.form=sexa}{Gaia} \citep{GaiaDR3} and \href{https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=II/375&-out.max=50&-out.form=HTML%20Table&-out.add=_r&-out.add=_RAJ,_DEJ&-sort=_r&-oc.form=sexa}{VISTA} \citep{Cioni11_Vista} catalogs, resulting in the final catalog having 7,048,620 rows and 205 columns.
 
 \section{Methodology}
-Describe the methods and procedures used in your research. Include details about your data collection, analysis techniques, and any tools or software used.
+The classes taken into account for the classification of point sources include:
+
+\begin{enumerate}
+  \item OB stars
+  \item Main sequence stars
+  \item A-G super giants
+  \item HII regions
+  \item Foreground stars
+  \item Background galaxies
+  \item WR stars
+  \item Red super giants
+  \item O-AGBs
+  \item C-AGBs
+  \item LBVs
+  \item Post-AGBs
+  \item Planetary nebulae
+  \item Young stellar objects. 
+\end{enumerate}  
+
+Supervised machine learning models will be employed for point source classification. To facilitate this, it is imperative to utilize sources whose class is definitively confirmed as test and training catalogs. The primary choice for confirmed sources is the \citet{Jones17} catalog.
 
 \section{Results}
 Present the results of your research. Use tables, figures, and graphs to illustrate your findings. Make sure to label and caption all figures and tables clearly.
