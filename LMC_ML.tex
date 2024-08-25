@@ -16,6 +16,9 @@
 \usepackage{multirow}
 \usepackage{longtable}
 \usepackage{booktabs}
+\usepackage{ctable} % for \specialrule command
+\usepackage{booktabs} % For better looking tables
+
 
 % Hyperref settings to show links in blue without boxes
 \hypersetup{
@@ -84,7 +87,7 @@ Sources in the Large Magellanic Cloud}
 Provide an introduction to your research. Explain the background, context, and the main objectives of your study. 
 
 \section{Catalogs}
-The primary catalog studied in this project is the SAGE catalog, which initially contained 7,048,620 rows and 111 columns. This catalog was cross-matched with the \href{https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=I/350&-out.max=50&-out.form=HTML%20Table&-out.add=_r&-out.add=_RAJ,_DEJ&-sort=_r&-oc.form=sexa}{Gaia} \citep{GaiaDR3} and \href{https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=II/375&-out.max=50&-out.form=HTML%20Table&-out.add=_r&-out.add=_RAJ,_DEJ&-sort=_r&-oc.form=sexa}{VISTA} \citep{Cioni11_Vista} catalogs, resulting in the final catalog having 7,048,620 rows and 205 columns.
+The primary catalog studied in this project is the SAGE catalog, which initially contained 7,048,620 rows and 111 columns. This catalog was cross-matched with the \href{https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=I/350&-out.max=50&-out.form=HTML%20Table&-out.add=_r&-out.add=_RAJ,_DEJ&-sort=_r&-oc.form=sexa}{Gaia} \citep{GaiaDR3} and \href{https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=II/375&-out.max=50&-out.form=HTML%20Table&-out.add=_r&-out.add=_RAJ,_DEJ&-sort=_r&-oc.form=sexa}{VISTA} \citep{Cioni11_Vista} catalogs, resulting in the final catalog having 7,048,620 rows and 206 columns.
 
 \section{Methodology}
 The classes taken into account for the classification of point sources include:
@@ -106,7 +109,66 @@ The classes taken into account for the classification of point sources include:
   \item Young stellar objects. 
 \end{enumerate}  
 
-Supervised machine learning models will be employed for point source classification. To facilitate this, it is imperative to utilize sources whose class is definitively confirmed as test and training catalogs. The primary choice for confirmed sources is the \citet{Jones17} catalog.
+Supervised machine learning models will be employed for point source classification. To facilitate this, it is imperative to utilize sources whose class is definitively confirmed as test and training catalogs. The primary choice for confirmed sources is the \citet{Jones17} catalog. After comparing the "IracDesignation" column from the SAGE catalog with the "IRAC" column from the Jones catalog, we identified common stars between the two catalogs and appended the spectroscopic label of Jones stars to the SAGE catalog. Consequently, 706 stars have been assigned confirmed classifications. The outcomes of this categorization are detailed in Table 1.
+
+\section{Censored and Missing Data}
+
+In machine learning and statistics, censored data and missing data are both situations where the full data is not available, but they differ significantly in how and why this happens:
+
+\subsection{Censored Data}
+
+Censored data is encountered when the existence of a data point is acknowledged, yet only partial information regarding its value is available. This situation typically arises when the data collection process is constrained or terminated at a specific juncture, resulting in incomplete observations. For instance, in survival analysis, consider a scenario where the time until a particular event (such as equipment failure) is under investigation. If the study concludes before the event transpires for certain subjects, it is only known that their event time exceeds the study duration, without precise temporal details. This phenomenon is referred to as right-censoring. Similarly, left-censoring occurs when it is only known that an event has taken place before a designated time.
+
+\subsection{Missing Data}
+
+Missing data occurs when the data point itself is absent or not observed for some reason. This could be due to errors in data collection, loss of records, or simply the fact that certain information was not available. Missing data can be categorized into three types:
+
+
+\begin{itemize}
+    \item Missing Completely at Random (MCAR): The probability of missing data is the same across all observations. Missingness is unrelated to the data itself.
+
+    \item Missing at Random (MAR): The probability of missing data is related to observed data but not the missing data itself.
+
+    \item Missing Not at Random (MNAR): The probability of missing data is related to the missing data itself.
+\end{itemize}
+
+Astronomers often observe celestial objects using telescopes equipped with different filters (e.g., U, B, V, R, I bands) to capture light at different wavelengths. However, due to bad weather, some observations might not be possible. For example a team is observing a distant galaxy in multiple bands, but cloud cover during the night only allows them to capture data in the V and R bands. The data for the U, B, and I bands is missing. This is an example of Missing Completely at Random (MCAR) because the missingness is due to external factors (weather) unrelated to the data itself.
+
+Astronomical instruments have sensitivity limits, meaning they might not detect faint objects in certain filter bands. A faint star cluster is observed in multiple bands. It is detected in the infrared (I band) but not in the ultraviolet (U band) because the star cluster’s emission is too weak in the ultraviolet range for the instrument to pick up. The U band data is missing because the star cluster is too faint in that band. This might be considered Missing Not at Random (MNAR) because the missing data is directly related to the star cluster's actual emission in that band.
+
+Observations are often scheduled based on availability of telescope time, and sometimes, not all filter bands can be covered. An observatory has limited time to observe a supernova event. The priority is given to capturing data in the B, V, and R bands, but due to time constraints, the U and I bands are skipped. The data in the U and I bands is missing due to scheduling priorities, which could be Missing at Random (MAR) if the decision was based on observed characteristics (like the supernova’s brightness in other bands).
+
+The SAGE catalog is derived from observations conducted using various filters. Within this catalog, if the star flux in a specific filter falls below the completeness threshold of the observation system, the corresponding value for that filter is denoted as 99.99 in the catalog. Table \ref{tab:right_censoring} displays the completeness limit for each filter.
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \hline
+        \hline
+        Filter & Magnitude limit  & Reference \\
+        \hline
+        U & 21.5 & \citep{Zaritsky04} \\ 
+        B & 23.5 & \\
+        V & 23 & \\
+        I & 22 & \\
+        \midrule[0.01pt]
+        J & 16.3 & \citep{Nikolaev2000} \\ 
+        H & 15.3 & \\
+        K & 14.7 & \\
+        \midrule[0.8pt]
+        3.6 & 18.348 & \citep{Meixner06} \\ 
+        4.5 & 17.474 & \\
+        5.8 & 15.164 & \\
+        8.0 & 14.226 & \\
+        24 & 11.340 & \\
+        \hline
+        \hline
+    \end{tabular}
+    \caption{Limits of observed magnitudes (right censoring) in different filters}
+    \label{tab:right_censoring}
+\end{table}
+
 
 \section{Results}
 Present the results of your research. Use tables, figures, and graphs to illustrate your findings. Make sure to label and caption all figures and tables clearly.
@@ -138,6 +200,6 @@ Acknowledge any individuals or organizations that assisted with your research. T
 \section*{Appendix}
 \addcontentsline{toc}{section}{Appendix}
 
-Massimo Marengo\footnote{mmarengo@fsu.edu} and Vallia Antoniou\footnote{Vallia.Antoniou@ttu.edu} contributed a set of categorized sources for our study. The pertinent files can be found in the "data > Templates" directory within this project's GitHub repository. The "Pair\_Xmatching.py" script within the GitHub "code" directory facilitates the pairwise cross-matching of the input files. It is anticipated that no shared sources will be identified across different classes during this process.
+Massimo Marengo\footnote{mmarengo@fsu.edu} and Vallia Antoniou\footnote{vallia.antoniou@ttu.edu} contributed a set of categorized sources for our study. The pertinent files can be found in the "data/Templates" directory within this project's GitHub repository. The "Pair\_Xmatching.py" script within the GitHub "code" directory facilitates the pairwise cross-matching of the input files. It is anticipated that no shared sources will be identified across different classes during this process.
 
 \end{document}
