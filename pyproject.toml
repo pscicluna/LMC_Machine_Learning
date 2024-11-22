@@ -1,6 +1,6 @@
 [project]
 authors = [{name = "Peter Scicluna", email = "pscicluna@users.noreply.github.com"}]
-dependencies = []
+dependencies = ["jax[cuda12]>=0.4.21,<0.5", "numpyro[cuda]>=0.8.0,<0.16"]
 description = "Add a short description here"
 name = "LMC_Machine_Learning"
 requires-python = ">= 3.11"
@@ -20,4 +20,14 @@ lmc_machine_learning = { path = ".", editable = true }
 [tool.pixi.tasks]
 
 [tool.pixi.dependencies]
-python = ">=3.13.0,<3.14"
+python = ">=3.11.0,<3.14"
+numpy = ">=1.21.0,<3"
+matplotlib = ">=3.9.2,<4"
+pandas = ">=2.2.3,<3"
+scipy = ">=1.14.1,<2"
+seaborn = ">=0.13.2,<0.14"
+blackjax = "*"
+pymc = ">=5"
+ipykernel = ">=6.29.5,<7"
+pip = ">=24.3.1,<25"
+scikit-learn = ">=1.5.2,<2"
